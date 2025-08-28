@@ -16,7 +16,7 @@ describe("Counter Component", () => {
         beforeEach(() => {
             fireEvent.click(screen.getByRole('button', { name: 'Add to Counter' }));
         })
-        it.only("test increment button", async () => {
+        it("test increment button", async () => {
             await waitFor(() => expect(screen.getByText("Current Count: 1")).toBeInTheDocument());
         });
     })
@@ -31,14 +31,14 @@ describe("Counter Component", () => {
     })
 
     describe("Counter Incrementor Input By 5", () => {
-        beforeEach(() => {
+        beforeEach(async () => {
             user.clear(screen.getByLabelText(/incrementor/i));
             user.type(screen.getByLabelText(/incrementor/i), "7");
             user.click(screen.getByRole('button', { name: 'Add to Counter' }))
-            screen.getByText("Current Count: 7")
+            await waitFor(() => screen.getByText("Current Count: 7"))
         })
         it("test incrementor input", () => {
-            expect(screen.getByText("Current Count: 7")).toBeInTheDocument();
+            expect(screen.getByText("Current Count: 7")).toBeInTheDocument()
         });
     })
 })
