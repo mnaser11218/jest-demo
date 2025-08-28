@@ -1,5 +1,5 @@
 import { Counter } from "./Counter";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import user from "@testing-library/user-event";
 describe("Counter Component", () => {
     beforeEach(() => {
@@ -16,8 +16,8 @@ describe("Counter Component", () => {
         beforeEach(() => {
             fireEvent.click(screen.getByRole('button', { name: 'Add to Counter' }));
         })
-        it("test increment button", () => {
-            expect(screen.getByText("Current Count: 1")).toBeInTheDocument();
+        it.only("test increment button", async () => {
+            await waitFor(() => expect(screen.getByText("Current Count: 1")).toBeInTheDocument());
         });
     })
 
@@ -28,17 +28,17 @@ describe("Counter Component", () => {
         it("test decrement button", () => {
             expect(screen.getByText("Current Count: -1")).toBeInTheDocument();
         });
-
     })
 
-    describe("Counter Incrementor Input", () => {
+    describe("Counter Incrementor Input By 5", () => {
         beforeEach(() => {
             user.clear(screen.getByLabelText(/incrementor/i));
-            user.type(screen.getByLabelText(/incrementor/i), "5");
-            user.click(screen.getByRole('button', { name: 'Add to Counter' }));
+            user.type(screen.getByLabelText(/incrementor/i), "7");
+            user.click(screen.getByRole('button', { name: 'Add to Counter' }))
+            screen.getByText("Current Count: 7")
         })
         it("test incrementor input", () => {
-            expect(screen.getByText("Current Count: 5")).toBeInTheDocument();
+            expect(screen.getByText("Current Count: 7")).toBeInTheDocument();
         });
     })
 })

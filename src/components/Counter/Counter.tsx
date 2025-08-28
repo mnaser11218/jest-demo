@@ -19,7 +19,7 @@ export function Counter({ description, defaultCount }: CounterProps) {
                 <input
                     value={incrementor}
                     onChange={(evt) => {
-                        setIncrementor(parseInt(evt.target.value) || 1);
+                        setIncrementor(parseInt(evt.target.value) || 1)
                     }}
                     type="number"
                 />
@@ -33,7 +33,7 @@ export function Counter({ description, defaultCount }: CounterProps) {
             Current Count: {count}
             <button
                 aria-label="Add to Counter"
-                onClick={() => setCount(count + incrementor)}
+                onClick={() => setTimeout(() => setCount(count + incrementor), 200)}
             >
                 +
             </button>
