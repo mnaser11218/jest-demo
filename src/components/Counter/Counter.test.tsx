@@ -1,5 +1,5 @@
 import { Counter } from "./Counter";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("Counter Component", () => {
     beforeEach(() => {
@@ -14,8 +14,7 @@ describe("Counter Component", () => {
 
     describe("Counter Increment Button", () => {
         beforeEach(() => {
-            const incrementButton = screen.getByLabelText("Add to Counter");
-            incrementButton.click();
+            fireEvent.click(screen.getByRole('button', { name: 'Add to Counter' }));
         })
         it("test increment button", () => {
             expect(screen.getByText("Current Count: 1")).toBeInTheDocument();
@@ -24,8 +23,7 @@ describe("Counter Component", () => {
 
     describe("Counter Decrement Button", () => {
         beforeEach(() => {
-            const decrementButton = screen.getByLabelText("Subtract from Counter");
-            decrementButton.click();
+            fireEvent.click(screen.getByLabelText("Subtract from Counter"));
         })
         it("test decrement button", () => {
             expect(screen.getByText("Current Count: -1")).toBeInTheDocument();
